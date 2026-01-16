@@ -6,7 +6,7 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.jdk17
-    pkgs.dotnetCorePackages.dotnet_9.sdk
+    pkgs.dotnet-sdk_10
   ];
   # Sets environment variables in the workspace
   env = {};
@@ -27,7 +27,7 @@
       onStart = {
         restore = "
           dotnet workload restore
-          dotnet build -f net9.0-android -t:InstallAndroidDependencies -p:AndroidSdkDirectory=/home/user/.androidsdkroot -p:AcceptAndroidSdkLicenses=True
+          dotnet build -f net10.0-android -t:InstallAndroidDependencies -p:AndroidSdkDirectory=/home/user/.androidsdkroot -p:AcceptAndroidSdkLicenses=True
           touch App.csproj # watch trigger ..
           ";
       };
@@ -37,7 +37,7 @@
       enable = true;
       previews = {
         android = {
-          command = ["dotnet" "watch" "build" "-f" "net9.0-android" "-t:Run"];
+          command = ["dotnet" "watch" "--no-hot-reload" "-f" "net10.0-android" "/p:AdbTarget=-s emulator-5554"];
           manager = "flutter";
         };
       };
