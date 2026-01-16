@@ -2,7 +2,7 @@
 # see: https://firebase.google.com/docs/studio/customize-workspace
 { pkgs, ... }: {
   # Which nixpkgs channel to use.
-  channel = "unstable";
+  channel = "stable-25.05";
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.jdk17
@@ -28,7 +28,7 @@
         restore = "
           dotnet workload restore
           dotnet build -f net9.0-android -t:InstallAndroidDependencies -p:AndroidSdkDirectory=/home/user/.androidsdkroot -p:AcceptAndroidSdkLicenses=True
-          echo >> App.xaml.cs # watch trigger ..
+          touch App.csproj # watch trigger ..
           ";
       };
     };
